@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>নিঝুম ভাইয়ের ঈদ সালামি 🌙</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Galada&family=Baloo+Da+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a1a;
+  --gold: #f0c040;
+  --gold2: #e8a500;
+  --red: #ff4757;
+  --green: #2ed573;
+  --blue: #1e90ff;
+  --purple: #a55eea;
+  --orange: #ff6348;
+  --teal: #1abc9c;
+  --pink: #fd79a8;
+  --lime: #badc58;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Hind Siliguri', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── BG GRADIENT MESH ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(240,192,64,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(30,144,255,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(165,94,234,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── STARS ── */
+#stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.star {
+  position: absolute; background: white; border-radius: 50%;
+  animation: tw var(--d) ease-in-out infinite alternate;
+}
+@keyframes tw {
+  from { opacity: var(--o); transform: scale(1); }
+  to   { opacity: 0.05; transform: scale(0.3); }
+}
+
+/* ── MOON ── */
+.moon {
+  position: fixed; top: 20px; right: 40px;
+  width: 60px; height: 60px;
+  background: radial-gradient(circle at 35% 35%, #fffde0, #f0c060);
+  border-radius: 50%;
+  box-shadow: 0 0 30px 8px rgba(255,240,100,0.2);
+  z-index: 1;
+  animation: mf 5s ease-in-out infinite;
+}
+@keyframes mf { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+/* ── FLYING MONEY ── */
+.money-fly {
+  position: fixed; font-size: 1.4rem; pointer-events: none; z-index: 1;
+  animation: flyMoney linear infinite;
+  opacity: 0.5;
+}
+@keyframes flyMoney {
+  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.5; }
+  90%  { opacity: 0.5; }
+  100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+/* ── PAGE ── */
+.page {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 430px;
+  padding: 16px 14px 40px;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* ── HEADER ── */
+.eid-badge {
+  margin-top: 80px;
+  background: linear-gradient(135deg, rgba(240,192,64,0.15), rgba(240,192,64,0.05));
+  border: 1px solid rgba(240,192,64,0.4);
+  border-radius: 30px;
+  padding: 5px 18px;
+  color: var(--gold);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Galada', cursive;
+  font-size: 2.8rem;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1.1;
+  text-shadow: 0 0 50px rgba(240,192,64,0.5), 0 3px 15px rgba(0,0,0,0.5);
+  margin-bottom: 4px;
+}
+
+.sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.88rem;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+/* ── FIXED RESULT BANNER ── */
+.fixed-banner {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(46,213,115,0.12), rgba(46,213,115,0.05));
+  border: 1px solid rgba(46,213,115,0.4);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 18px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+.fixed-banner.show { display: flex; }
+.fixed-banner .lock-icon { font-size: 1.3rem; }
+.fixed-banner .fixed-text {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+.fixed-banner .fixed-text strong { color: var(--green); font-size: 1rem; }
+
+/* ── WHEEL ── */
+.wheel-section { position: relative; margin-bottom: 26px; }
+
+.outer-ring {
+  position: absolute; inset: -14px; border-radius: 50%;
+  background: conic-gradient(var(--gold), var(--red), var(--blue), var(--green), var(--purple), var(--gold));
+  filter: blur(10px); opacity: 0; transition: opacity 0.4s;
+  animation: spinOuter 6s linear infinite;
+}
+.outer-ring.on { opacity: 0.45; }
+@keyframes spinOuter { to { transform: rotate(360deg); } }
+
+.wheel-wrap { position: relative; width: 300px; height: 300px; }
+
+.ptr {
+  position: absolute; top: -22px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0;
+}
+.ptr-icon { font-size: 1.2rem; animation: pb 0.9s ease-in-out infinite alternate; }
+@keyframes pb { from{transform:translateY(0)} to{transform:translateY(5px)} }
+.ptr-tri {
+  width: 0; height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 20px solid var(--gold);
+  filter: drop-shadow(0 2px 6px rgba(240,192,64,0.7));
+}
+
+canvas {
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px var(--gold), 0 0 0 9px rgba(240,192,64,0.15), 0 18px 50px rgba(0,0,0,0.7);
+  display: block;
+}
+
+/* ── BUTTON ── */
+.btn-area { position: relative; margin-bottom: 16px; }
+.btn-halo {
+  position: absolute; inset: -8px; border-radius: 50px;
+  background: var(--gold); filter: blur(18px); opacity: 0.35;
+  animation: halo 1.8s ease-in-out infinite;
+}
+@keyframes halo {
+  0%,100%{opacity:0.25;transform:scale(0.92)}
+  50%{opacity:0.55;transform:scale(1.06)}
+}
+.spin-btn {
+  position: relative;
+  background: linear-gradient(135deg, #f7d730, #e8a500);
+  color: #1a0800;
+  border: none; border-radius: 50px;
+  padding: 15px 52px;
+  font-family: 'Baloo Da 2', cursive;
+  font-size: 1.25rem; font-weight: 800;
+  cursor: pointer; letter-spacing: 0.5px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.spin-btn:hover:not(:disabled) { transform: translateY(-3px); }
+.spin-btn:active:not(:disabled) { transform: translateY(1px); }
+.spin-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── SPIN COUNTER ── */
+.spin-info {
+  color: rgba(255,255,255,0.35);
+  font-size: 0.78rem;
+  margin-top: 6px;
+  text-align: center;
+  min-height: 18px;
+  transition: color 0.3s;
+}
+.spin-info.tease { color: rgba(255,100,100,0.7); }
+
+/* ── MODAL ── */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.35s;
+}
+.overlay.show { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: linear-gradient(160deg, #111830 0%, #080d1e 100%);
+  border: 1px solid rgba(240,192,64,0.3);
+  border-radius: 26px;
+  padding: 28px 22px;
+  max-width: 350px; width: 100%;
+  text-align: center;
+  transform: scale(0.78) translateY(35px);
+  transition: transform 0.42s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative; overflow: hidden;
+}
+.modal::after {
+  content: '';
+  position: absolute; bottom: -60px; right: -60px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(240,192,64,0.08), transparent 70%);
+  pointer-events: none;
+}
+.overlay.show .modal { transform: scale(1) translateY(0); }
+
+.modal-big-emoji {
+  font-size: 4.5rem; display: block; margin-bottom: 6px;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;
+}
+@keyframes popIn { from{transform:scale(0) rotate(-15deg)} to{transform:scale(1) rotate(0)} }
+
+.modal-amount {
+  font-family: 'Galada', cursive;
+  font-size: 3.5rem;
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(240,192,64,0.6);
+  line-height: 1;
+  margin-bottom: 2px;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.25s both;
+}
+.modal-label {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+.modal-label strong { color: white; }
+
+/* Fixed notice in modal */
+.fixed-notice {
+  background: rgba(46,213,115,0.08);
+  border: 1px solid rgba(46,213,115,0.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.fixed-notice span { color: var(--green); font-weight: 700; }
+
+/* Nijhum card */
+.nj-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px; text-align: left;
+}
+.nj-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(240,192,64,0.35);
+}
+.nj-info .nj-name { font-family: 'Galada', cursive; color: var(--gold); font-size: 1.1rem; }
+.nj-info .nj-msg  { color: rgba(255,255,255,0.5); font-size: 0.78rem; }
+
+.modal-btns { display: flex; gap: 8px; }
+.btn-again {
+  flex: 1; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 11px; padding: 13px;
+  color: rgba(255,255,255,0.6); font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+}
+.btn-again:hover { background: rgba(255,255,255,0.1); color: white; }
+.btn-ok {
+  flex: 1.5;
+  background: linear-gradient(135deg, #2ed573, #17a84a);
+  border: none; border-radius: 11px; padding: 13px;
+  color: white; font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.btn-ok:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(46,213,115,0.3); }
+
+/* ── REPEAT MODAL (same result again) ── */
+.repeat-modal {
+  background: linear-gradient(160deg, #1a0e2e 0%, #0d0820 100%);
+  border-color: rgba(165,94,234,0.4);
+}
+.repeat-modal .modal-amount { color: var(--purple); text-shadow: 0 0 30px rgba(165,94,234,0.6); }
+.repeat-modal .fixed-notice { background: rgba(165,94,234,0.08); border-color: rgba(165,94,234,0.25); }
+.repeat-modal .fixed-notice span { color: var(--purple); }
+
+/* ── CONFETTI ── */
+.cp {
+  position: fixed; top: -15px; pointer-events: none; z-index: 200;
+  animation: cf linear forwards; border-radius: 3px;
+}
+@keyframes cf {
+  0%   { transform: translateY(0) rotate(0) scale(1); opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(108vh) rotate(800deg) scale(0.4); opacity: 0; }
+}
+
+/* ── FOOTER ── */
+.footer { color: rgba(255,255,255,0.18); font-size: 0.7rem; margin-top: 14px; letter-spacing: 1px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+<div class="moon"></div>
+
+<div class="page">
+  <div class="eid-badge">🌙 ঈদ স্পেশাল ২০২৬</div>
+  <h1>সালামি দেবেন<br>কত?</h1>
+  <p class="sub">নিঝুম ভাইয়ের বিশেষ ঈদ সালামি — চাকা ঘোরান!</p>
+
+  <!-- Fixed result banner (shows after first spin) -->
+  <div class="fixed-banner" id="fixedBanner">
+    <span class="lock-icon">🔒</span>
+    <div class="fixed-text">
+      আপনার সালামি ফিক্সড: <strong id="bannerAmount">—</strong><br>
+      <span style="font-size:0.75rem;color:rgba(255,255,255,0.4)">যতবারই ঘোরান, এটাই আসবে!</span>
+    </div>
+  </div>
+
+  <!-- Wheel -->
+  <div class="wheel-section">
+    <div class="outer-ring" id="outerRing"></div>
+    <div class="wheel-wrap">
+      <div class="ptr">
+        <div class="ptr-icon">☪️</div>
+        <div class="ptr-tri"></div>
+      </div>
+      <canvas id="wheel" width="300" height="300"></canvas>
+    </div>
+  </div>
+
+  <!-- Button -->
+  <div class="btn-area">
+    <div class="btn-halo"></div>
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">চাকা ঘোরান! 🎰</button>
+  </div>
+
+  <div class="spin-info" id="spinInfo"></div>
+  <p class="footer">নিঝুম ভাই সালামি কোং © ২০২৬ · দোয়া™ দ্বারা পরিচালিত</p>
+</div>
+
+<!-- Result Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <span class="modal-big-emoji" id="modalEmoji">💰</span>
+    <div class="modal-amount" id="modalAmount">৫ টাকা</div>
+    <div class="modal-label">নিঝুম ভাই আপনাকে দেবেন: <strong id="modalAmountLabel">৫ টাকা</strong></div>
+
+    <div class="fixed-notice" id="fixedNotice">
+      🔒 এই সালামি এখন <span>চিরতরে ফিক্সড</span>! আবার ঘোরালেও একই আসবে।
+    </div>
+
+    <div class="nj-card">
+      <div class="nj-avatar">😄</div>
+      <div class="nj-info">
+        <div class="nj-name">নিঝুম ভাই</div>
+        <div class="nj-msg" id="nijhumMsg">বিশেষ বার্তা পাঠাচ্ছেন...</div>
+      </div>
+    </div>
+
+    <div class="modal-btns">
+      <button class="btn-again" onclick="closeModal()">আবার ঘোরান 🔄</button>
+      <button class="btn-ok" onclick="closeModal()">সালামি নিলাম ✅</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── STARS ── */
+const sf = document.getElementById('stars');
+for (let i = 0; i < 100; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const sz = Math.random() * 2.5 + 0.4;
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${1.5+Math.random()*3}s;--o:${0.3+Math.random()*0.6};animation-delay:${Math.random()*3}s`;
+  sf.appendChild(s);
+}
+
+/* ── FLYING MONEY ── */
+const moneyEmojis = ['💵','💴','💶','💷','💰','🤑'];
+for (let i = 0; i < 6; i++) {
+  const m = document.createElement('div');
+  m.className = 'money-fly';
+  m.textContent = moneyEmojis[i % moneyEmojis.length];
+  m.style.cssText = `left:${10+i*15}%;animation-duration:${8+Math.random()*6}s;animation-delay:${Math.random()*6}s`;
+  document.body.appendChild(m);
+}
+
+/* ── WHEEL SETUP ── */
+const canvas = document.getElementById('wheel');
+const ctx = canvas.getContext('2d');
+const CX = 150, CY = 150, R = 143;
+
+/* 20 segments: 1–20 টাকা */
+const amounts = Array.from({length: 20}, (_, i) => i + 1);
+const COLORS = [
+  '#c0392b','#e67e22','#f39c12','#27ae60','#16a085',
+  '#2980b9','#8e44ad','#d35400','#1abc9c','#2ecc71',
+  '#e74c3c','#e67e22','#3498db','#9b59b6','#1abc9c',
+  '#f1c40f','#e91e63','#00bcd4','#8bc34a','#ff5722',
+];
+
+const NUM = amounts.length;
+const ARC = (2 * Math.PI) / NUM;
+let rotation = 0;
+let isSpinning = false;
+let spinCount = 0;
+
+/* ── FIXED RESULT SYSTEM ── */
+let fixedIndex = null; // null = not yet determined
+
+function getTargetIndex() {
+  if (fixedIndex === null) {
+    // First spin: pick random
+    fixedIndex = Math.floor(Math.random() * NUM);
+  }
+  return fixedIndex;
+}
+
+/* ── DRAW WHEEL ── */
+function drawWheel(rot) {
+  ctx.clearRect(0, 0, 300, 300);
+
+  amounts.forEach((amt, i) => {
+    const start = rot + i * ARC - Math.PI / 2;
+    const end = start + ARC;
+    const color = COLORS[i % COLORS.length];
+
+    /* Segment */
+    ctx.beginPath();
+    ctx.moveTo(CX, CY);
+    ctx.arc(CX, CY, R, start, end);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+
+    /* Highlight fixed segment subtly after first spin */
+    if (fixedIndex !== null && i === fixedIndex) {
+      ctx.beginPath();
+      ctx.moveTo(CX, CY);
+      ctx.arc(CX, CY, R, start, end);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(255,255,255,0.18)';
+      ctx.fill();
+    }
+
+    /* Divider */
+    ctx.beginPath();
+    ctx.moveTo(CX, CY);
+    ctx.arc(CX, CY, R, start, end);
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    /* Amount text */
+    ctx.save();
+    ctx.translate(CX, CY);
+    ctx.rotate(start + ARC / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#fff';
+    ctx.font = `bold 12px 'Hind Siliguri', sans-serif`;
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 3;
+    /* Bengali numerals */
+    ctx.fillText(toBengaliNum(amt) + '৳', R - 8, 4);
+    ctx.restore();
+  });
+
+  /* Outer ring */
+  ctx.beginPath();
+  ctx.arc(CX, CY, R, 0, 2 * Math.PI);
+  ctx.strokeStyle = '#f0c040';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  /* Inner deco ring */
+  ctx.beginPath();
+  ctx.arc(CX, CY, R - 10, 0, 2 * Math.PI);
+  ctx.strokeStyle = 'rgba(240,192,64,0.18)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  /* Center hub */
+  const hub = ctx.createRadialGradient(CX, CY, 0, CX, CY, 20);
+  hub.addColorStop(0, '#fff5c0');
+  hub.addColorStop(1, '#c8800a');
+  ctx.beginPath();
+  ctx.arc(CX, CY, 20, 0, 2 * Math.PI);
+  ctx.fillStyle = hub;
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.font = '14px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#1a0800';
+  ctx.shadowBlur = 0;
+  ctx.fillText('৳', CX, CY + 1);
+  ctx.textBaseline = 'alphabetic';
+}
+
+/* ── BENGALI NUMERALS ── */
+function toBengaliNum(n) {
+  return String(n).replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+}
+
+drawWheel(rotation);
+
+/* ── SPIN ── */
+function spinWheel() {
+  if (isSpinning) return;
+  isSpinning = true;
+
+  const targetIdx = getTargetIndex(); // always same after first spin
+  document.getElementById('outerRing').classList.add('on');
+  document.getElementById('spinBtn').disabled = true;
+
+  /* Compute rotation to land targetIdx under pointer */
+  const cur = ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+  let targetRot = (-(targetIdx * ARC) - ARC / 2 + 2 * Math.PI * 10) % (2 * Math.PI);
+  let delta = targetRot - cur;
+  if (delta < 0) delta += 2 * Math.PI;
+
+  const spins = 7 + Math.floor(Math.random() * 5);
+  const totalRot = spins * 2 * Math.PI + delta;
+  const duration = 4200 + Math.random() * 900;
+  const startRot = rotation;
+  const t0 = performance.now();
+
+  function ease(t) { return 1 - Math.pow(1 - t, 4.5); }
+
+  function tick(now) {
+    const t = Math.min((now - t0) / duration, 1);
+    rotation = startRot + totalRot * ease(t);
+    drawWheel(rotation);
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      rotation = startRot + totalRot;
+      drawWheel(rotation);
+      isSpinning = false;
+      document.getElementById('outerRing').classList.remove('on');
+      document.getElementById('spinBtn').disabled = false;
+      spinCount++;
+      setTimeout(() => showResult(targetIdx), 550);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ── MESSAGES ── */
+function getMsg(amt, count) {
+  const msgs = [
+    [`মাশাআল্লাহ! ${toBengaliNum(amt)} টাকা পেলেন! এখন ভাই এটা দেওয়ার কথা ভাবছেন... 😅`, false],
+    [`আবার চেষ্টা করলেন? দেখুন ভাই, ${toBengaliNum(amt)} টাকাই আসবে বারবার! 😂`, true],
+    [`তৃতীয়বারও ${toBengaliNum(amt)} টাকা! ভাগ্য মানে না? নাকি ভাই মানে না? 🤣`, true],
+    [`${toBengaliNum(amt)} টাকা ফিক্সড মানে ফিক্সড! হাল ছাড়বেন না ভাই! 😄`, true],
+  ];
+  const idx = Math.min(count - 1, msgs.length - 1);
+  return msgs[idx];
+}
+
+function showResult(idx) {
+  const amt = amounts[idx];
+  const amtText = `${toBengaliNum(amt)} টাকা`;
+  const isRepeat = spinCount > 1;
+  const [msg] = getMsg(amt, spinCount);
+
+  /* Update modal */
+  document.getElementById('modalEmoji').textContent = amt <= 5 ? '😅' : amt <= 10 ? '😮' : amt <= 15 ? '🤑' : '💰';
+  document.getElementById('modalAmount').textContent = amtText;
+  document.getElementById('modalAmountLabel').textContent = amtText;
+  document.getElementById('nijhumMsg').textContent = msg;
+
+  /* Fixed notice wording */
+  if (isRepeat) {
+    document.getElementById('fixedNotice').innerHTML =
+      `🔒 দেখলেন তো? এবারও <span>${amtText}</span>! এটাই আপনার ভাগ্য! 😂`;
+    document.getElementById('modal').classList.add('repeat-modal');
+  } else {
+    document.getElementById('fixedNotice').innerHTML =
+      `🔒 এই সালামি এখন <span>চিরতরে ফিক্সড</span>! আবার ঘোরালেও একই আসবে।`;
+    document.getElementById('modal').classList.remove('repeat-modal');
+  }
+
+  /* Update top banner */
+  document.getElementById('bannerAmount').textContent = amtText;
+  document.getElementById('fixedBanner').classList.add('show');
+
+  /* Spin info text */
+  const info = document.getElementById('spinInfo');
+  if (spinCount >= 2) {
+    info.textContent = `${toBengaliNum(spinCount)} বার চেষ্টা করলেন — ${amtText} ই পাচ্ছেন! 😂`;
+    info.classList.add('tease');
+  }
+
+  document.getElementById('overlay').classList.add('show');
+  launchConfetti();
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('show');
+}
+
+/* ── CONFETTI ── */
+function launchConfetti() {
+  const cols = ['#f0c040','#ff4757','#2ed573','#1e90ff','#a55eea','#ff6348','#fff','#fd79a8'];
+  for (let i = 0; i < 70; i++) {
+    const el = document.createElement('div');
+    el.className = 'cp';
+    const sz = 6 + Math.random() * 10;
+    el.style.cssText = `
+      left:${Math.random()*100}vw;
+      width:${sz}px;height:${sz*(Math.random()>0.5?1:2.2)}px;
+      background:${cols[Math.floor(Math.random()*cols.length)]};
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${2.2+Math.random()*2.5}s;
+      animation-delay:${Math.random()*0.5}s;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4500);
+  }
+}
+</script>
+</body>
+</html>
