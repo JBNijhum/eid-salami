@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>নিঝুম ভাইয়ের ঈদ সালামি 🌙</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Yatra+One&family=Galada&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #050d2e;
+  --moon: #fffbe6;
+  --gold: #f0c040;
+  --accent: #ff6b6b;
+  --green: #00c896;
+  --card: rgba(255,255,255,0.06);
+  --glow: 0 0 30px rgba(240,192,64,0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: var(--sky);
+  font-family: 'Hind Siliguri', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── STARS ── */
+#starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--d, 2s) ease-in-out infinite alternate;
+  opacity: var(--o, 0.7);
+}
+@keyframes twinkle {
+  from { opacity: var(--o, 0.7); transform: scale(1); }
+  to   { opacity: 0.1; transform: scale(0.4); }
+}
+
+/* ── MOON ── */
+.moon {
+  position: fixed;
+  top: 30px;
+  right: 60px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at 35% 35%, #fffde0, #f5d96b);
+  border-radius: 50%;
+  box-shadow: 0 0 40px 12px rgba(255,240,120,0.25), 0 0 0 4px rgba(255,240,120,0.08);
+  z-index: 1;
+  animation: moonFloat 6s ease-in-out infinite;
+}
+@keyframes moonFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── LANTERNS ── */
+.lanterns {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  pointer-events: none;
+  z-index: 1;
+  height: 200px;
+}
+.lantern {
+  position: absolute;
+  top: -20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: swing var(--sw, 3s) ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+@keyframes swing {
+  from { transform: rotate(-10deg); }
+  to   { transform: rotate(10deg); }
+}
+.lantern-body {
+  width: 22px;
+  height: 32px;
+  border-radius: 4px 4px 8px 8px;
+  position: relative;
+  box-shadow: 0 0 14px 4px currentColor;
+  opacity: 0.85;
+}
+.lantern-body::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 3px;
+}
+.lantern-string {
+  width: 1px;
+  height: 60px;
+  background: rgba(255,255,255,0.25);
+}
+.lantern-tip { width: 12px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; }
+
+/* ── MAIN LAYOUT ── */
+.page {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 440px;
+  padding: 20px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── HEADER ── */
+.brand-tag {
+  background: rgba(240,192,64,0.12);
+  border: 1px solid rgba(240,192,64,0.3);
+  border-radius: 20px;
+  padding: 4px 16px;
+  color: var(--gold);
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  margin-top: 110px;
+  font-weight: 600;
+}
+
+h1 {
+  font-family: 'Galada', cursive;
+  font-size: 3rem;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1.1;
+  text-shadow: 0 0 40px rgba(240,192,64,0.6), 0 4px 20px rgba(0,0,0,0.5);
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+/* ── PRIZE TICKER ── */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: rgba(240,192,64,0.07);
+  border: 1px solid rgba(240,192,64,0.2);
+  border-radius: 8px;
+  padding: 8px 0;
+  margin-bottom: 28px;
+}
+.ticker {
+  display: flex;
+  gap: 40px;
+  white-space: nowrap;
+  animation: scroll 12s linear infinite;
+  width: max-content;
+}
+.ticker span {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── WHEEL SECTION ── */
+.wheel-section {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.wheel-glow-ring {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #f0c040, #ff6b6b, #00c896, #4da6ff, #ff6b6b, #f0c040
+  );
+  animation: spinRing 8s linear infinite;
+  opacity: 0;
+  transition: opacity 0.5s;
+  filter: blur(8px);
+}
+.wheel-glow-ring.active { opacity: 0.5; }
+@keyframes spinRing {
+  to { transform: rotate(360deg); }
+}
+
+.wheel-wrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.pointer-wrap {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pointer-emoji { font-size: 1.4rem; animation: pointerBounce 0.8s ease-in-out infinite alternate; }
+@keyframes pointerBounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(4px); }
+}
+.pointer-tip {
+  width: 0; height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 22px solid var(--gold);
+  filter: drop-shadow(0 3px 8px rgba(240,192,64,0.6));
+}
+
+canvas {
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 5px var(--gold),
+    0 0 0 8px rgba(240,192,64,0.2),
+    0 20px 60px rgba(0,0,0,0.6);
+  display: block;
+}
+
+/* ── SPIN BUTTON ── */
+.btn-wrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+.btn-glow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50px;
+  background: var(--gold);
+  filter: blur(16px);
+  opacity: 0.4;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.3; transform: scale(0.95); }
+  50%      { opacity: 0.6; transform: scale(1.05); }
+}
+.spin-btn {
+  position: relative;
+  background: linear-gradient(135deg, #f5d020, #f0a500);
+  color: #1a0a00;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 56px;
+  font-family: 'Yatra One', cursive;
+  font-size: 1.3rem;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.spin-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.4); }
+.spin-btn:active:not(:disabled) { transform: translateY(1px); }
+.spin-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── ATTEMPTS ── */
+.attempts {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+  justify-content: center;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.4s;
+}
+.dot.used { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
+
+/* ── MODAL ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.overlay.show { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: linear-gradient(160deg, #0d1f4a 0%, #050d2e 100%);
+  border: 1px solid rgba(240,192,64,0.35);
+  border-radius: 28px;
+  padding: 30px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  transform: scale(0.75) translateY(40px);
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+  overflow: hidden;
+}
+.modal::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(240,192,64,0.12), transparent 70%);
+  pointer-events: none;
+}
+.overlay.show .modal { transform: scale(1) translateY(0); }
+
+.modal-emoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 8px;
+  animation: modalBounce 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+}
+@keyframes modalBounce {
+  from { transform: scale(0) rotate(-20deg); }
+  to   { transform: scale(1) rotate(0deg); }
+}
+
+.modal-title {
+  font-family: 'Galada', cursive;
+  font-size: 2rem;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(240,192,64,0.5);
+  margin-bottom: 6px;
+}
+.modal-sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+.modal-sub strong { color: white; font-size: 1.15rem; }
+
+/* Nijhum Bhai card */
+.nijhum-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(240,192,64,0.2);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.nijhum-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f0c040, #ff6b6b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 10px;
+  box-shadow: 0 0 20px rgba(240,192,64,0.4);
+  animation: avatarPop 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.4s both;
+}
+@keyframes avatarPop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+.nijhum-name {
+  font-family: 'Galada', cursive;
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.nijhum-msg {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+}
+
+/* Dua text with typewriter */
+.dua-text {
+  background: linear-gradient(135deg, rgba(0,200,150,0.1), rgba(240,192,64,0.1));
+  border: 1px solid rgba(0,200,150,0.3);
+  border-radius: 12px;
+  padding: 14px;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 10px;
+}
+.accept-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #00c896, #008f6a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.retry-btn {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.accept-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,200,150,0.3); }
+.retry-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+
+/* ── CONFETTI ── */
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  animation: fall linear forwards;
+  pointer-events: none;
+  z-index: 200;
+  border-radius: 3px;
+}
+@keyframes fall {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(105vh) rotate(900deg) scale(0.5); opacity: 0; }
+}
+
+/* ── FOOTER ── */
+.footer {
+  color: rgba(255,255,255,0.2);
+  font-size: 0.72rem;
+  margin-top: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+<div id="starfield"></div>
+<div class="moon"></div>
+
+<!-- Lanterns -->
+<div class="lanterns" id="lanterns"></div>
+
+<div class="page">
+  <div class="brand-tag">🌙 ঈদ স্পেশাল ২০২৬</div>
+  <h1>সালামি দেবেন<br>কত?</h1>
+  <p class="subtitle">নিঝুম ভাইয়ের বিশেষ ঈদ সালামি — চাকা ঘোরান!</p>
+
+  <!-- Prize ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span>💰 ২ টাকা</span>
+      <span>💵 ৫ টাকা</span>
+      <span>💴 ১০ টাকা</span>
+      <span>💶 ৫০ টাকা</span>
+      <span>💷 ১০০ টাকা</span>
+      <span>🤲 অসীম দোয়া</span>
+      <span>💰 ২ টাকা</span>
+      <span>💵 ৫ টাকা</span>
+      <span>💴 ১০ টাকা</span>
+      <span>💶 ৫০ টাকা</span>
+      <span>💷 ১০০ টাকা</span>
+      <span>🤲 অসীম দোয়া</span>
+    </div>
+  </div>
+
+  <!-- Wheel -->
+  <div class="wheel-section">
+    <div class="wheel-glow-ring" id="glowRing"></div>
+    <div class="wheel-wrap">
+      <div class="pointer-wrap">
+        <div class="pointer-emoji">☪️</div>
+        <div class="pointer-tip"></div>
+      </div>
+      <canvas id="wheel" width="300" height="300"></canvas>
+    </div>
+  </div>
+
+  <!-- Spin button -->
+  <div class="btn-wrap">
+    <div class="btn-glow"></div>
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">চাকা ঘোরান! 🎰</button>
+  </div>
+
+  <!-- Attempt dots -->
+  <div class="attempts" id="dots"></div>
+
+  <p class="footer">নিঝুম ভাই সালামি কোং © ২০২৬ · দোয়া™ দ্বারা পরিচালিত</p>
+</div>
+
+<!-- Result Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <span class="modal-emoji" id="modalEmoji">🤲</span>
+    <div class="modal-title">আলহামদুলিল্লাহ!</div>
+    <div class="modal-sub">আপনি জিতেছেন: <strong>অসীম দোয়া! ✨</strong></div>
+
+    <div class="nijhum-card">
+      <div class="nijhum-avatar">😄</div>
+      <div class="nijhum-name">নিঝুম ভাই</div>
+      <div class="nijhum-msg">বিশেষ বার্তা পাঠাচ্ছেন...</div>
+    </div>
+
+    <div class="dua-text" id="duaText">
+      "আমি দোয়া করি আপনার জীবন সুখ ও শান্তিতে ভরে উঠুক।
+      টাকা না পেলেও দোয়া তো পেলেন — এটাই আসল সম্পদ! 😂"
+      <br><br>— নিঝুম ভাই 🌙
+    </div>
+
+    <div class="modal-btns">
+      <button class="retry-btn" onclick="retry()">আবার চেষ্টা 🔄</button>
+      <button class="accept-btn" onclick="acceptDua()">দোয়া কবুল ✅</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── STARS ── */
+const sf = document.getElementById('starfield');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `
+    left:${Math.random()*100}%;top:${Math.random()*100}%;
+    width:${size}px;height:${size}px;
+    --d:${1.5+Math.random()*3}s;--o:${0.3+Math.random()*0.7};
+    animation-delay:${Math.random()*3}s;
+  `;
+  sf.appendChild(s);
+}
+
+/* ── LANTERNS ── */
+const lc = document.getElementById('lanterns');
+const lColors = ['#ff6b6b','#f0c040','#00c896','#4da6ff','#ff9f43'];
+const positions = [5,15,25,40,55,68,80,90];
+positions.forEach((left, i) => {
+  const l = document.createElement('div');
+  l.className = 'lantern';
+  const c = lColors[i % lColors.length];
+  l.style.cssText = `left:${left}%;--sw:${2+Math.random()*2}s;animation-delay:${Math.random()*1.5}s;color:${c};`;
+  l.innerHTML = `
+    <div class="lantern-tip"></div>
+    <div class="lantern-string"></div>
+    <div class="lantern-body" style="background:${c};"></div>
+  `;
+  lc.appendChild(l);
+});
+
+/* ── WHEEL ── */
+const canvas = document.getElementById('wheel');
+const ctx = canvas.getContext('2d');
+const CX = 150, CY = 150, R = 143;
+
+const segments = [
+  { label: 'দোয়া 🤲', color: '#1a3a8f', text: '#f0c040' },
+  { label: '২ টাকা',   color: '#c0392b', text: '#fff' },
+  { label: 'দোয়া 🤲', color: '#1a3a8f', text: '#f0c040' },
+  { label: '৫ টাকা',   color: '#27ae60', text: '#fff' },
+  { label: 'দোয়া 🤲', color: '#1a3a8f', text: '#f0c040' },
+  { label: '১০ টাকা',  color: '#8e44ad', text: '#fff' },
+  { label: 'দোয়া 🤲', color: '#1a3a8f', text: '#f0c040' },
+  { label: '৫০ টাকা',  color: '#e67e22', text: '#fff' },
+  { label: 'দোয়া 🤲', color: '#1a3a8f', text: '#f0c040' },
+  { label: '১০০ টাকা', color: '#16a085', text: '#fff' },
+];
+
+const NUM = segments.length;
+const ARC = (2 * Math.PI) / NUM;
+let rotation = 0;
+let isSpinning = false;
+let spinCount = 0;
+const MAX_DOTS = 8;
+
+/* Build dots */
+const dotsEl = document.getElementById('dots');
+for (let i = 0; i < MAX_DOTS; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.id = 'dot' + i;
+  dotsEl.appendChild(d);
+}
+
+function drawWheel(rot) {
+  ctx.clearRect(0, 0, 300, 300);
+
+  segments.forEach((seg, i) => {
+    const start = rot + i * ARC - Math.PI / 2;
+    const end = start + ARC;
+
+    /* Segment */
+    ctx.beginPath();
+    ctx.moveTo(CX, CY);
+    ctx.arc(CX, CY, R, start, end);
+    ctx.closePath();
+    ctx.fillStyle = seg.color;
+    ctx.fill();
+
+    /* Subtle inner glow for Dua segments */
+    if (seg.label.includes('দোয়া')) {
+      const grad = ctx.createRadialGradient(CX, CY, 40, CX, CY, R);
+      grad.addColorStop(0, 'rgba(240,192,64,0.18)');
+      grad.addColorStop(1, 'rgba(240,192,64,0)');
+      ctx.beginPath();
+      ctx.moveTo(CX, CY);
+      ctx.arc(CX, CY, R, start, end);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    /* Divider */
+    ctx.beginPath();
+    ctx.moveTo(CX, CY);
+    ctx.arc(CX, CY, R, start, end);
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    /* Text */
+    ctx.save();
+    ctx.translate(CX, CY);
+    ctx.rotate(start + ARC / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = seg.text;
+    ctx.font = `bold 13px 'Hind Siliguri', sans-serif`;
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = 4;
+    ctx.fillText(seg.label.replace(' 🤲',''), R - 10, 5);
+    ctx.restore();
+  });
+
+  /* Outer ring */
+  ctx.beginPath();
+  ctx.arc(CX, CY, R, 0, 2 * Math.PI);
+  ctx.strokeStyle = '#f0c040';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  /* Inner decorative ring */
+  ctx.beginPath();
+  ctx.arc(CX, CY, R - 12, 0, 2 * Math.PI);
+  ctx.strokeStyle = 'rgba(240,192,64,0.2)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  /* Center hub */
+  const hubGrad = ctx.createRadialGradient(CX, CY, 0, CX, CY, 22);
+  hubGrad.addColorStop(0, '#f5e070');
+  hubGrad.addColorStop(1, '#c8900a');
+  ctx.beginPath();
+  ctx.arc(CX, CY, 22, 0, 2 * Math.PI);
+  ctx.fillStyle = hubGrad;
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  /* ☪ center icon */
+  ctx.font = '18px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#1a0a00';
+  ctx.shadowBlur = 0;
+  ctx.fillText('☪', CX, CY);
+  ctx.textBaseline = 'alphabetic';
+}
+
+drawWheel(rotation);
+
+/* ── SPIN ── */
+function spinWheel() {
+  if (isSpinning) return;
+  isSpinning = true;
+
+  document.getElementById('glowRing').classList.add('active');
+  document.getElementById('spinBtn').disabled = true;
+
+  /* Always land on a DUA segment (indices 0,2,4,6,8 are DUA) */
+  const duaIndices = [0, 2, 4, 6, 8];
+  const targetIndex = duaIndices[Math.floor(Math.random() * duaIndices.length)];
+
+  /* Compute required final rotation so that targetIndex is under pointer (top) */
+  const segMid = targetIndex * ARC + ARC / 2; // midpoint angle of target segment (from top, clockwise)
+  const cur = ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+
+  // We want: (rotation_final) such that segMid lands at top (pointer at -π/2 → 0 in our drawing = top)
+  // In drawWheel, segment i starts at rot + i*ARC - π/2
+  // Midpoint at rot + i*ARC + ARC/2 - π/2 = -π/2 (top pointer)
+  // → rot = -i*ARC - ARC/2  (mod 2π)
+  let targetRot = (-(targetIndex * ARC) - ARC / 2 + 2 * Math.PI * 10) % (2 * Math.PI);
+  let delta = targetRot - cur;
+  if (delta < 0) delta += 2 * Math.PI;
+
+  const spins = 7 + Math.floor(Math.random() * 5);
+  const totalRotation = spins * 2 * Math.PI + delta;
+  const duration = 4500 + Math.random() * 1000;
+  const startRot = rotation;
+  const startTime = performance.now();
+
+  function easeOut(t) {
+    return 1 - Math.pow(1 - t, 4.5);
+  }
+
+  function tick(now) {
+    const t = Math.min((now - startTime) / duration, 1);
+    rotation = startRot + totalRotation * easeOut(t);
+    drawWheel(rotation);
+
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      rotation = startRot + totalRotation;
+      drawWheel(rotation);
+      isSpinning = false;
+      document.getElementById('glowRing').classList.remove('active');
+      document.getElementById('spinBtn').disabled = false;
+
+      /* Update dot */
+      if (spinCount < MAX_DOTS) {
+        document.getElementById('dot' + spinCount).classList.add('used');
+      }
+      spinCount++;
+
+      setTimeout(() => showResult(), 600);
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
+
+const duaMsgs = [
+  '"ভাই, টাকা না পেলেও দোয়া পেলেন — এটাই জীবনের আসল সম্পদ! 😂"\n— নিঝুম ভাই 🌙',
+  '"আবার চেষ্টা করলেন? মাশাআল্লাহ! এবারও দোয়া — কারণ দোয়া তো শেষ হয় না! 🤲"\n— নিঝুম ভাই 🌙',
+  '"তৃতীয়বারও দোয়া! আল্লাহর পক্ষ থেকে আপনার জন্য বিশেষ দোয়া! 😄"\n— নিঝুম ভাই 🌙',
+  '"ভাই, হাল ছাড়বেন না। কিন্তু টাকাও পাবেন না। ঈদ মোবারক! 🎉"\n— নিঝুম ভাই 🌙',
+];
+
+function showResult() {
+  const msgIndex = Math.min(spinCount - 1, duaMsgs.length - 1);
+  document.getElementById('duaText').textContent = duaMsgs[msgIndex];
+  document.getElementById('overlay').classList.add('show');
+  launchConfetti();
+}
+
+function retry() {
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function acceptDua() {
+  document.getElementById('overlay').classList.remove('show');
+}
+
+/* ── CONFETTI ── */
+function launchConfetti() {
+  const colors = ['#f0c040','#ff6b6b','#00c896','#4da6ff','#ff9f43','#fff','#a29bfe'];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    const size = 6 + Math.random() * 10;
+    el.style.cssText = `
+      left:${Math.random()*100}vw;
+      width:${size}px;height:${size * (Math.random() > 0.5 ? 1 : 2.5)}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius:${Math.random()>0.5?'50%':'3px'};
+      animation-duration:${2+Math.random()*2.5}s;
+      animation-delay:${Math.random()*0.6}s;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+</script>
+</body>
+</html>
